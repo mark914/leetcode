@@ -1,0 +1,31 @@
+class Solution:
+    def restoreIpAddresses(self, s: str) -> List[str]:
+        res = []
+        def isValid(start, end):
+            if start > end: 
+                return False
+            if s[start] == '0' and start != end:
+                return False
+            if not 0 <= int(s[start:end+1]) <= 255:
+                return False
+            return True
+        def dfs(startIndex, pointsNum):
+            nonlocal s
+            if pointsNum == 3:
+                if isValid(startIndex, len(s)-1):
+                    res.append(s[:])
+                    return 
+                
+            for i in range(startIndex, len(s)):
+                if not isValid(startIndex, i):
+                    break
+                s = s[:i+1] + "." + s[i+1:]
+                dfs(i+2, pointsNum + 1)
+                s = s[:i+1] + s[i+2:]
+        
+        dfs(0, 0)
+        return res
+                
+
+# runtime:60 ms
+# memory:15.1 MB

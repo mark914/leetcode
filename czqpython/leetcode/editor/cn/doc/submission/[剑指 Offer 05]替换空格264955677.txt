@@ -1,0 +1,13 @@
+class Solution:
+    def replaceSpace(self, s: str) -> str:
+        res = []
+        for ch in list(s):
+            if ch == " ":
+                res.append("%20")
+            else:
+                res.append(ch)
+
+        return "".join(res)
+
+# runtime:40 ms
+# memory:14.8 MB
